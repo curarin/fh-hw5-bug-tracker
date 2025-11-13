@@ -12,8 +12,6 @@ public class Bug {
     }
     // Ein Bug ist definiert durch seinen Titel, Status und seine Priorität
 
-
-
     // Benötigte Methoden sind
     /*
     startProgress():
@@ -56,16 +54,6 @@ Ansonsten wird eine Exception geworfen.
         }
     }
 
-    /*
-    printDetails():
-Gibt den Titel, den Status und die Priorität mit einer entsprechenden Meldung aus
-     */
-    public void printDetails() {
-        System.out.printf("Current bug status: %s\n", currentBugStatus);
-        System.out.printf("Current bug name: %s\n", currentBugName);
-        System.out.printf("Current bug priority: %s\n", currentBugPriority);
-    }
-
     // Damit wir im Tracker nach Prio Status filtern können brauchen wir hier einen Getter
     public BugPriority getBugPriority() {
         return this.currentBugPriority;
@@ -75,4 +63,15 @@ Gibt den Titel, den Status und die Priorität mit einer entsprechenden Meldung a
     public BugStatus getBugStatus() {
         return this.currentBugStatus;
     }
+
+    /*
+    printDetails():
+    Gibt den Titel, den Status und die Priorität mit einer entsprechenden Meldung aus
+     */
+    public void printDetails() {
+        System.out.printf("Current bug status: %s\n", currentBugStatus);
+        System.out.printf("Current bug name: %s\n", currentBugName);
+        System.out.printf("Current bug priority: %s\n", currentBugPriority);
+    }
+
 }

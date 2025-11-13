@@ -26,8 +26,11 @@ public class BugTracker {
     }
 
     // Änderung des Status eines Bugs anhand seines Indexes (nach den Regeln: OPEN -> IN_PROGRESS -> FIXED -> CLOSED).
-    public void changeBugStatus(BugStatus wantedBugStatus, Integer bugIndex) {
+    public void changeBugStatus(BugStatus wantedBugStatus, Integer wantedBugIndex) {
+        Bug wantedBug = this.trackedBugsList.get(wantedBugIndex);
+        // über Try Catch Finally den Lifecycle durchgehen möglich?
 
+        this.trackedBugsList.set(wantedBugIndex, wantedBug);
     }
 
     // Ausgabe aller Bugs mit ihren Details.
