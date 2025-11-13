@@ -1,0 +1,78 @@
+package org.lecture;
+
+public class Bug {
+    // Initialisiert wird der Bug immer im Status OPEN und mit einer vom Benutzer angegebenen Priorität.
+    private BugStatus currentBugStatus = BugStatus.OPEN;
+    final private BugPriority currentBugPriority; // muss nicht zwingend final sein, aber ich mags nicht wenn Stakeholder an der Prio rumdoktorn (:
+    final private String currentBugName;
+
+    public Bug(BugPriority currentBugPriority, String currentBugName) {
+        this.currentBugPriority = currentBugPriority;
+        this.currentBugName = currentBugName;
+    }
+    // Ein Bug ist definiert durch seinen Titel, Status und seine Priorität
+
+
+
+    // Benötigte Methoden sind
+    /*
+    startProgress():
+    Setzt den Status auf IN_PROGRESS. Dies ist nur erlaubt, wenn der aktuelle Status OPEN ist.
+    Ist der Status FIXED oder CLOSED, soll eine Exception geworfen werden, die in der Main-Klasse behandelt wird. */
+
+    public void startProgress() throws Exception {
+        if (this.currentBugStatus == BugStatus.OPEN) {
+            this.currentBugStatus = BugStatus.IN_PROGRESS;
+        } else if (this.currentBugStatus == BugStatus.FIXED || this.currentBugStatus == BugStatus.CLOSED) {
+            throw new IllegalStateException("Status fixed / closed");
+        } else {
+            throw new Exception("Random andere Exception");
+        }
+    }
+
+    /*
+    markFixed():
+Setzt den Status auf FIXED. Dies ist nur erlaubt, wenn der aktuelle Status IN_PROGRESS ist.
+Bei anderen Zuständen wird eine Exception geworfen.
+     */
+    public void markFixed() throws Exception {
+        if (this.currentBugStatus == BugStatus.IN_PROGRESS) {
+            this.currentBugStatus = BugStatus.FIXED;
+        } else {
+            throw new IllegalStateException("Status muss In Progress sein");
+        }
+    }
+
+    /*
+    closeBug():
+Setzt den Status auf CLOSED. Dies ist nur erlaubt, wenn der aktuelle Status FIXED ist.
+Ansonsten wird eine Exception geworfen.
+     */
+    public void closeBug() throws Exception {
+        if (this.currentBugStatus == BugStatus.FIXED) {
+            this.currentBugStatus = BugStatus.CLOSED;
+        } else {
+            throw new IllegalStateException("Status muss FIXED sein");
+        }
+    }
+
+    /*
+    printDetails():
+Gibt den Titel, den Status und die Priorität mit einer entsprechenden Meldung aus
+     */
+    public void printDetails() {
+        System.out.printf("Current bug status: %s\n", currentBugStatus);
+        System.out.printf("Current bug name: %s\n", currentBugName);
+        System.out.printf("Current bug priority: %s\n", currentBugPriority);
+    }
+
+    // Damit wir im Tracker nach Prio Status filtern können brauchen wir hier einen Getter
+    public BugPriority getBugPriority() {
+        return this.currentBugPriority;
+    }
+
+    // Selbiges hier mit nach Bug Status Filter
+    public BugStatus getBugStatus() {
+        return this.currentBugStatus;
+    }
+}
