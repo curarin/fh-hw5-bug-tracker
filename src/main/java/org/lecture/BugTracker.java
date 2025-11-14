@@ -113,6 +113,8 @@ public class BugTracker {
 
     // Ausgabe aller Bugs mit einem bestimmten Status.
     public void printAllFilteredByStatus(BugStatus wantedBugStatus) {
+        //this.trackedBugsList.sort();
+        // Beim Sort muss man nur Print Filtereted By Prio
         for (Bug bug : this.trackedBugsList) {
             if (bug.getBugStatus() == wantedBugStatus) {
                 bug.printDetails(this.trackedBugsList.indexOf(bug));
