@@ -7,6 +7,8 @@ public class BugTracker {
     ArrayList<Bug> trackedBugsList = new ArrayList<Bug>();
     //  Zusätzlich gibt es ein Array von 10 Bugs mit der Priorität CRITICAL. Werden diese 10 Einträge überschritten, soll eine Warnung ausgegeben werden.
     ArrayList<Bug> trackedCriticalBugsList = new ArrayList<Bug>();
+    java.util.logging.Logger logger = java.util.logging.Logger.getLogger("BugTrackerLogger"); // Source: https://stackoverflow.com/questions/54822478/print-stack-trace-saying-warning-instead-of-error
+
 
     //     Über den BugTracker sollen folgende Operationen möglich sein:
     //  Hinzufügen eines Bugs mit Titel und Priorität.
@@ -14,6 +16,9 @@ public class BugTracker {
         if (newBug.getBugPriority() == BugPriority.CRITICAL) {
             // Wird die maximale Anzahl von 10 Bugs überschritten, soll eine Meldung ausgegeben werden, der Bug aber trotzdem angelegt werden.
             trackedCriticalBugsList.add(newBug);
+            if (trackedCriticalBugsList.size() >= 10) {
+                logger.warning("We already got 10 critical bugs. Bug was still added to the list.");
+            }
             trackedBugsList.add(newBug);
         } else {
             trackedBugsList.add(newBug);
@@ -26,10 +31,28 @@ public class BugTracker {
     }
 
     // Änderung des Status eines Bugs anhand seines Indexes (nach den Regeln: OPEN -> IN_PROGRESS -> FIXED -> CLOSED).
-    public void changeBugStatus(BugStatus wantedBugStatus, Integer wantedBugIndex) {
+    public void progressBugStatus(Integer wantedBugIndex) {
         Bug wantedBug = this.trackedBugsList.get(wantedBugIndex);
-        // über Try Catch Finally den Lifecycle durchgehen möglich?
 
+        if (wantedBug.getBugStatus() == BugStatus.OPEN) {
+            try {
+                wantedBug.startProgress();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (wantedBug.getBugStatus() == BugStatus.IN_PROGRESS) {
+            try {
+                wantedBug.markFixed();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (wantedBug.getBugStatus() == BugStatus.FIXED) {
+            try {
+                wantedBug.closeBug();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
         this.trackedBugsList.set(wantedBugIndex, wantedBug);
     }
 
