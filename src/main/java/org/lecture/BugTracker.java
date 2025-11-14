@@ -27,7 +27,15 @@ public class BugTracker {
 
     // Löschen eines Bugs anhand seines Indexes.
     public void deleteBug(int bugIndex) {
-        this.trackedBugsList.remove(bugIndex); // Versteh die Error Message hier nicht, laut JavaDoc und auch https://www.w3schools.com/java/ref_arraylist_remove.asp sollte hier bei Übergabe eines Ints auf Basis des Index gelöscht werden
+        Bug removedBug = this.trackedBugsList.get(bugIndex);
+        this.trackedBugsList.remove(bugIndex);
+
+        // Zusatz Lösche Critical Bugs ebenfalls auf Basis der UUID
+        for (Bug bug : this.trackedCriticalBugsList) {
+            if (bug.getBugId().equals(removedBug.getBugId())) {
+                this.trackedCriticalBugsList.remove(bug);
+            }
+        }
     }
 
     public void markBugAsStarted(int wantedBugIndex) throws Exception {
@@ -42,7 +50,6 @@ public class BugTracker {
             throw new IllegalStateException("Start Process only allowed for OPEN Bug Status.");
         }
         this.trackedBugsList.set(wantedBugIndex, wantedBug);
-
     }
 
     public void markBugAsFixed(int wantedBugIndex) throws Exception {
