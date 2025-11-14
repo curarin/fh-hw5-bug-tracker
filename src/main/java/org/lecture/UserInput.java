@@ -7,6 +7,7 @@ public class UserInput {
     Scanner scanner = new Scanner(System.in);
     private int mainMenuChoice;
     private BugPriority bugPriority;
+    private BugStatus bugStatus;
     private String bugName;
 
     public void applicationStartTheme() {
@@ -77,6 +78,46 @@ public class UserInput {
             case 4 -> this.bugPriority = BugPriority.LOW;
             default -> throw new InputMismatchException("Please enter a valid bug priority.");
         }
+    }
+
+    public BugStatus getBugStatusMenu() {
+        int bugStatusInput = 0;
+
+        System.out.println("""
+                Please enter Bug Status
+                (1)\tOPEN
+                (2)\tIN_PROGRESS
+                (3)\tFIXED
+                (4)\tCLOSED
+                """);
+        String input = scanner.nextLine();
+        try {
+            bugStatusInput = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid integer number.");
+        }
+        if (bugStatusInput > 4 || bugStatusInput < 1) {
+            throw new InputMismatchException("Please enter a valid number between 1 and 4.");
+        }
+        switch (bugStatusInput) {
+            case 1 -> this.bugStatus = BugStatus.OPEN;
+            case 2 -> this.bugStatus = BugStatus.IN_PROGRESS;
+            case 3 -> this.bugStatus = BugStatus.FIXED;
+            case 4 -> this.bugStatus = BugStatus.CLOSED;
+            default -> throw new InputMismatchException("Please enter a valid bug status.");
+        }
+        return this.bugStatus;
+    }
+
+    public int getBugIndexMenu() {
+        // Hier noch validierung sinnvoll bzgl. "Index vorhanden / Array Length"
+        System.out.print("Please enter the wanted bug position: ");
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid integer number.");
+        }
+        return 0;
     }
 
     public Bug getCurrentBug() {

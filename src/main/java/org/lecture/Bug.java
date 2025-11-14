@@ -67,10 +67,10 @@ Ansonsten wird eine Exception geworfen.
     printDetails():
     Gibt den Titel, den Status und die Priorität mit einer entsprechenden Meldung aus
      */
-    public void printDetails() {
-        System.out.print("-------------------------------------------------------\n");
-        System.out.printf("Name: %s\t Priority: %s\t Status: %s\n", currentBugName, currentBugStatus, currentBugPriority);
-        System.out.print("-------------------------------------------------------\n");
+    public void printDetails(Integer bugIndex) {
+        System.out.print("------------------------------------------------------------------------------------------\n");
+        System.out.printf("Pos[%d] | Name: %s\t\t Status: %s\t\t Priority: %s\n", bugIndex, currentBugName, currentBugStatus, currentBugPriority);
+        System.out.print("------------------------------------------------------------------------------------------\n");
     }
 
 }

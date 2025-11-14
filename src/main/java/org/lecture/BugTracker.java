@@ -17,7 +17,7 @@ public class BugTracker {
             // Wird die maximale Anzahl von 10 Bugs überschritten, soll eine Meldung ausgegeben werden, der Bug aber trotzdem angelegt werden.
             trackedCriticalBugsList.add(newBug);
             if (trackedCriticalBugsList.size() >= 10) {
-                logger.warning("We already got 10 critical bugs. Bug was still added to the list.");
+                logger.warning("We already got 10 critical bugs. Please keep our devs sane. (FYI: Bug was still added to the list.)");
             }
             trackedBugsList.add(newBug);
         } else {
@@ -26,12 +26,53 @@ public class BugTracker {
     }
 
     // Löschen eines Bugs anhand seines Indexes.
-    public void deleteBug(Integer bugIndex) {
+    public void deleteBug(int bugIndex) {
         this.trackedBugsList.remove(bugIndex); // Versteh die Error Message hier nicht, laut JavaDoc und auch https://www.w3schools.com/java/ref_arraylist_remove.asp sollte hier bei Übergabe eines Ints auf Basis des Index gelöscht werden
     }
 
+    public void markBugAsStarted(int wantedBugIndex) throws Exception {
+        Bug wantedBug = this.trackedBugsList.get(wantedBugIndex);
+        if (wantedBug.getBugStatus() == BugStatus.OPEN) {
+            try {
+                wantedBug.startProgress();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            throw new IllegalStateException("Start Process only allowed for OPEN Bug Status.");
+        }
+        this.trackedBugsList.set(wantedBugIndex, wantedBug);
+
+    }
+
+    public void markBugAsFixed(int wantedBugIndex) throws Exception {
+        Bug wantedBug = this.trackedBugsList.get(wantedBugIndex);
+        if (wantedBug.getBugStatus() == BugStatus.IN_PROGRESS) {
+            try {
+                wantedBug.markFixed();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            throw new IllegalStateException("Mark Process only allowed for IN_PROGRESS Bug Status.");
+        }
+    }
+
+    public void markBugAsClosed(int wantedBugIndex) throws Exception {
+        Bug wantedBug = this.trackedBugsList.get(wantedBugIndex);
+        if (wantedBug.getBugStatus() == BugStatus.FIXED) {
+            try {
+                wantedBug.closeBug();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            throw new IllegalStateException("Mark Process only allowed for FIXED Bug Status.");
+        }
+    }
+
     // Änderung des Status eines Bugs anhand seines Indexes (nach den Regeln: OPEN -> IN_PROGRESS -> FIXED -> CLOSED).
-    public void progressBugStatus(Integer wantedBugIndex) {
+    public void progressBugStatus(int wantedBugIndex) {
         Bug wantedBug = this.trackedBugsList.get(wantedBugIndex);
 
         if (wantedBug.getBugStatus() == BugStatus.OPEN) {
@@ -59,7 +100,7 @@ public class BugTracker {
     // Ausgabe aller Bugs mit ihren Details.
     public void printAll() {
         for (Bug bug : this.trackedBugsList) {
-            bug.printDetails();
+            bug.printDetails(this.trackedBugsList.indexOf(bug));
         }
     }
 
@@ -67,8 +108,7 @@ public class BugTracker {
     public void printAllFilteredByStatus(BugStatus wantedBugStatus) {
         for (Bug bug : this.trackedBugsList) {
             if (bug.getBugStatus() == wantedBugStatus) {
-                System.out.printf("Index: %d", this.trackedBugsList.indexOf(bug));
-                bug.printDetails();
+                bug.printDetails(this.trackedBugsList.indexOf(bug));
             }
         }
     }
@@ -77,7 +117,7 @@ public class BugTracker {
     public void printAllFilteredByPriority(BugPriority wantedBugPriority) {
         for (Bug bug : this.trackedBugsList) {
             if (bug.getBugPriority() == wantedBugPriority) {
-                bug.printDetails();
+                bug.printDetails(this.trackedBugsList.indexOf(bug));
             }
         }
     }
