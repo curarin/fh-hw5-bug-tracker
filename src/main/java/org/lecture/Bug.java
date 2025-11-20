@@ -76,7 +76,7 @@ Ansonsten wird eine Exception geworfen.
      */
     public void printDetails(Integer bugIndex) {
         System.out.print("------------------------------------------------------------------------------------------\n");
-        System.out.printf("Pos[%d] | Name: %s\t\t Status: %s\t\t Priority: %s\n", bugIndex, currentBugName, currentBugStatus, currentBugPriority);
+        System.out.printf("Pos[%d] | Name: %s\t\t Status: %s\t\t Priority: %s\n", bugIndex, this.currentBugName, this.currentBugStatus, this.currentBugPriority);
         System.out.print("------------------------------------------------------------------------------------------\n");
     }
 
