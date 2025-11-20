@@ -99,22 +99,24 @@ public class BugTracker {
     public void printAllSortedByPriority() {
         for (Bug bug : this.trackedBugsList) {
             switch (bug.getBugPriority()) {
-                case BugPriority.CRITICAL -> {
-                    System.out.println("--- Critical Priority Bugs ---");
-                    bug.printDetails(this.trackedBugsList.indexOf(bug));
-                }
-                case BugPriority.HIGH -> {
-                    System.out.println("--- High Priority Bugs ---");
+                case BugPriority.LOW -> {
+                    System.out.println("--- Low Priority Bugs ---");
                     bug.printDetails(this.trackedBugsList.indexOf(bug));
                 }
                 case BugPriority.MEDIUM -> {
                     System.out.println("--- Medium Priority Bugs ---");
                     bug.printDetails(this.trackedBugsList.indexOf(bug));
                 }
-                case BugPriority.LOW -> {
-                    System.out.println("--- Low Priority Bugs ---");
+                case BugPriority.HIGH -> {
+                    System.out.println("--- High Priority Bugs ---");
                     bug.printDetails(this.trackedBugsList.indexOf(bug));
                 }
+                case BugPriority.CRITICAL -> {
+                    System.out.println("--- Critical Priority Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+
+
             }
         }
     }
@@ -126,12 +128,12 @@ public class BugTracker {
                     System.out.println("--- Open Bugs ---");
                     bug.printDetails(this.trackedBugsList.indexOf(bug));
                 }
-                case BugStatus.FIXED -> {
-                    System.out.println("--- Fixed Bugs ---");
-                    bug.printDetails(this.trackedBugsList.indexOf(bug));
-                }
                 case BugStatus.IN_PROGRESS -> {
                     System.out.println("--- In Progress Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+                case BugStatus.FIXED -> {
+                    System.out.println("--- Fixed Bugs ---");
                     bug.printDetails(this.trackedBugsList.indexOf(bug));
                 }
                 case BugStatus.CLOSED -> {
