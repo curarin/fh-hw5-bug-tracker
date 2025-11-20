@@ -35,14 +35,24 @@ public class Main {
                         break;
                     case 5:
                         bugTracker.printAll();
+                        bugTracker.deleteBug(userInput.getBugIndexMenu());
                         break;
                     case 6:
                         bugTracker.printAll();
-                        bugTracker.deleteBug(userInput.getBugIndexMenu());
                         break;
                     case 7:
                         BugStatus currentUserBugStatus = userInput.getBugStatusMenu();
                         bugTracker.printAllFilteredByStatus(currentUserBugStatus);
+                        break;
+                    case 8:
+                        bugTracker.printAllSortedByPriority();
+                        break;
+                    case 9:
+                        bugTracker.printAllSortedByStatus();
+                        break;
+                    case 10:
+                        bugTracker.printCountSortedByStatus();
+                        break;
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
