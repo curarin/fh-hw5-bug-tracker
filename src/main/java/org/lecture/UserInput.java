@@ -20,6 +20,7 @@ public class UserInput {
 
     public Integer mainMenu() throws Exception {
         System.out.println("""
+                =============================
                 --- New bugs ---
                 (1)\t\tAdd new bug
                 (2)\t\tStart progress on a bug
