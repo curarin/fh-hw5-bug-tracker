@@ -21,31 +21,36 @@ public class UserInput {
     public Integer mainMenu() throws Exception {
         System.out.println("""
                 --- New bugs ---
-                (1)\tAdd new bug
-                (2)\tStart progress on a bug
+                (1)\t\tAdd new bug
+                (2)\t\tStart progress on a bug
                 
                 --- Working on bugs ---
-                (3)\tMark bug as fixed
-                (4)\tClose bug
-                (6)\tDelete a bug
+                (3)\t\tMark bug as fixed
+                (4)\t\tClose bug
+                (5)\t\tDelete a bug
                 
                 --- Display bugs ---
-                (6)\tDisplay all current bugs
-                (7)\tDisplay bug by Status
+                (6)\t\tDisplay all current bugs
+                (7)\t\tDisplay bug by Status
+                
+                --- Display all bugs (sorted) ---
+                (8)\t\tDisplay bugs sorted by status
+                (9)\t\tDisplay bugs sorted by priority
+                (10)\tDisplay bug count per status
                 
                 --- EXIT ---
-                (0)\tExit
+                (0)\t\tExit
                 =============================
                 """);
         String input = scanner.nextLine();
         try {
             mainMenuChoice = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid integer number.");
+            System.err.println("Please enter a valid integer number.");
         }
 
-        if (mainMenuChoice < 0 || mainMenuChoice > 7) {
-            throw new InputMismatchException("Please enter a number between 0 and 7.");
+        if (mainMenuChoice < 0 || mainMenuChoice > 10) {
+            throw new InputMismatchException("Please enter a number between 0 and 10.");
         }
         return mainMenuChoice;
     }
@@ -65,7 +70,7 @@ public class UserInput {
         try {
             bugPriorityInput = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid integer number.");
+            System.err.println("Please enter a valid integer number.");
         }
 
         if (bugPriorityInput > 4 || bugPriorityInput < 1) {
@@ -94,7 +99,7 @@ public class UserInput {
         try {
             bugStatusInput = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid integer number.");
+            System.err.println("Please enter a valid integer number.");
         }
         if (bugStatusInput > 4 || bugStatusInput < 1) {
             throw new InputMismatchException("Please enter a valid number between 1 and 4.");
@@ -115,7 +120,7 @@ public class UserInput {
         try {
             return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid integer number.");
+            System.err.println("Please enter a valid integer number.");
         }
         return 0;
     }
