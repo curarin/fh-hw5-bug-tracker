@@ -5,13 +5,12 @@ public class Main {
         UserInput userInput = new UserInput();
         BugTracker bugTracker = new BugTracker();
         boolean isRunning = true;
-        int menuChoice = 0;
 
         userInput.applicationStartTheme();
 
         do {
             try {
-                menuChoice = userInput.mainMenu();
+                int menuChoice = userInput.mainMenu();
                 switch (menuChoice) {
                     case 0 -> {
                         isRunning = false;
