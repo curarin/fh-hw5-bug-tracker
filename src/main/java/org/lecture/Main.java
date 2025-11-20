@@ -13,46 +13,38 @@ public class Main {
             try {
                 menuChoice = userInput.mainMenu();
                 switch (menuChoice) {
-                    case 0:
+                    case 0 -> {
                         isRunning = false;
                         System.out.println("Thanks for using the BUG TRACKER.");
-                        break;
-                    case 1:
+                    }
+                    case 1 -> {
                         userInput.addBugMenu();
                         bugTracker.addBug(userInput.getCurrentBug());
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         bugTracker.printAll();
                         bugTracker.markBugAsStarted(userInput.getBugIndexMenu());
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         bugTracker.printAll();
                         bugTracker.markBugAsFixed(userInput.getBugIndexMenu());
-                        break;
-                    case 4:
+                    }
+                    case 4 -> {
                         bugTracker.printAll();
                         bugTracker.markBugAsClosed(userInput.getBugIndexMenu());
-                        break;
-                    case 5:
+                    }
+                    case 5 -> {
                         bugTracker.printAll();
                         bugTracker.deleteBug(userInput.getBugIndexMenu());
-                        break;
-                    case 6:
-                        bugTracker.printAll();
-                        break;
-                    case 7:
+                    }
+                    case 6 -> bugTracker.printAll();
+                    case 7 -> {
                         BugStatus currentUserBugStatus = userInput.getBugStatusMenu();
                         bugTracker.printAllFilteredByStatus(currentUserBugStatus);
-                        break;
-                    case 8:
-                        bugTracker.printAllSortedByPriority();
-                        break;
-                    case 9:
-                        bugTracker.printAllSortedByStatus();
-                        break;
-                    case 10:
-                        bugTracker.printCountSortedByStatus();
-                        break;
+                    }
+                    case 8 -> bugTracker.printAllSortedByPriority();
+                    case 9 -> bugTracker.printAllSortedByStatus();
+                    case 10 -> bugTracker.printCountSortedByStatus();
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
