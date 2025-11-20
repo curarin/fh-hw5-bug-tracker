@@ -44,7 +44,7 @@ public class BugTracker {
             try {
                 wantedBug.startProgress();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         } else {
             throw new IllegalStateException("Start Process only allowed for OPEN Bug Status.");
@@ -58,7 +58,7 @@ public class BugTracker {
             try {
                 wantedBug.markFixed();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         } else {
             throw new IllegalStateException("Mark Process only allowed for IN_PROGRESS Bug Status.");
@@ -71,7 +71,7 @@ public class BugTracker {
             try {
                 wantedBug.closeBug();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         } else {
             throw new IllegalStateException("Mark Process only allowed for FIXED Bug Status.");
@@ -86,19 +86,19 @@ public class BugTracker {
             try {
                 wantedBug.startProgress();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         } else if (wantedBug.getBugStatus() == BugStatus.IN_PROGRESS) {
             try {
                 wantedBug.markFixed();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         } else if (wantedBug.getBugStatus() == BugStatus.FIXED) {
             try {
                 wantedBug.closeBug();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
         this.trackedBugsList.set(wantedBugIndex, wantedBug);
@@ -122,12 +122,71 @@ public class BugTracker {
         }
     }
 
-    // Ausgabe aller Bugs einer bestimmten Priorität.
-    public void printAllFilteredByPriority(BugPriority wantedBugPriority) {
+    public void printAllSortedByPriority() {
         for (Bug bug : this.trackedBugsList) {
-            if (bug.getBugPriority() == wantedBugPriority) {
-                bug.printDetails(this.trackedBugsList.indexOf(bug));
+            switch (bug.getBugPriority()) {
+                case BugPriority.CRITICAL -> {
+                    System.out.println("--- Critical Priority Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+                case BugPriority.HIGH -> {
+                    System.out.println("--- High Priority Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+                case BugPriority.MEDIUM -> {
+                    System.out.println("--- Medium Priority Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+                case BugPriority.LOW -> {
+                    System.out.println("--- Low Priority Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
             }
         }
+    }
+
+    public void printAllSortedByStatus() {
+        for (Bug bug : this.trackedBugsList) {
+            switch (bug.getBugStatus()) {
+                case BugStatus.OPEN -> {
+                    System.out.println("--- Open Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+                case BugStatus.FIXED -> {
+                    System.out.println("--- Fixed Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+                case BugStatus.IN_PROGRESS -> {
+                    System.out.println("--- In Progress Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+                case BugStatus.CLOSED -> {
+                    System.out.println("--- Closed Bugs ---");
+                    bug.printDetails(this.trackedBugsList.indexOf(bug));
+                }
+            }
+        }
+    }
+
+    public void printCountSortedByStatus() {
+        int openBugCount = 0;
+        int closedBugCount = 0;
+        int inProgressBugCount = 0;
+        int fixedBugCount = 0;
+
+        for (Bug bug : this.trackedBugsList) {
+            switch (bug.getBugStatus()) {
+                case BugStatus.OPEN -> openBugCount++;
+                case BugStatus.FIXED -> fixedBugCount++;
+                case BugStatus.IN_PROGRESS -> inProgressBugCount++;
+                case BugStatus.CLOSED -> closedBugCount++;
+            }
+        }
+        System.out.printf("Open Bug Count: %d\n", openBugCount);
+        System.out.printf("Fixed Bug Count: %d\n", fixedBugCount);
+        System.out.printf("In Progress Bug Count: %d\n", inProgressBugCount);
+        System.out.printf("Closed Bug Count: %d\n", closedBugCount);
+        System.out.println("=============================\n");
+
     }
 }
