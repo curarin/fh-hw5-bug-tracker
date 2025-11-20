@@ -6,12 +6,12 @@ public class Bug {
     private BugStatus currentBugStatus = BugStatus.OPEN;
     final private BugPriority currentBugPriority; // muss nicht zwingend final sein, aber ich mags nicht wenn Stakeholder an der Prio rumdoktorn (:
     final private String currentBugName;
-    final private String Id;
+    final private String uuid;
 
     public Bug(BugPriority currentBugPriority, String currentBugName) {
         this.currentBugPriority = currentBugPriority;
         this.currentBugName = currentBugName;
-        this.Id = UUID.randomUUID().toString(); // Source > https://www.uuidgenerator.net/dev-corner/java
+        this.uuid = UUID.randomUUID().toString(); // Source > https://www.uuidgenerator.net/dev-corner/java
     }
     // Ein Bug ist definiert durch seinen Titel, Status und seine Priorität
     // Benötigte Methoden sind
@@ -67,7 +67,7 @@ Ansonsten wird eine Exception geworfen.
     }
 
     public String getBugId() {
-        return this.Id;
+        return this.uuid;
     }
 
     /*
