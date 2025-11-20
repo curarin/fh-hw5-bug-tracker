@@ -9,7 +9,7 @@ public class Main {
 
         userInput.applicationStartTheme();
 
-        while (isRunning) {
+        do {
             try {
                 menuChoice = userInput.mainMenu();
                 switch (menuChoice) {
@@ -47,8 +47,7 @@ public class Main {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
-        }
+        } while (isRunning);
     }
 
 }
