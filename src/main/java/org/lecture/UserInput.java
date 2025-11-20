@@ -43,6 +43,7 @@ public class UserInput {
                 (0)\t\tExit
                 =============================
                 """);
+        System.out.print("Choose option: ");
         String input = scanner.nextLine();
         try {
             mainMenuChoice = Integer.parseInt(input);
@@ -67,6 +68,7 @@ public class UserInput {
                 (3)\tMEDIUM
                 (4)\tLOW
                 """);
+        System.out.print("Choose option: ");
         String input = scanner.nextLine();
         try {
             bugPriorityInput = Integer.parseInt(input);
@@ -96,6 +98,7 @@ public class UserInput {
                 (3)\tFIXED
                 (4)\tCLOSED
                 """);
+        System.out.print("Choose option: ");
         String input = scanner.nextLine();
         try {
             bugStatusInput = Integer.parseInt(input);
