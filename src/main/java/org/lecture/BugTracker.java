@@ -78,32 +78,6 @@ public class BugTracker {
         }
     }
 
-    // Änderung des Status eines Bugs anhand seines Indexes (nach den Regeln: OPEN -> IN_PROGRESS -> FIXED -> CLOSED).
-    public void progressBugStatus(int wantedBugIndex) {
-        Bug wantedBug = this.trackedBugsList.get(wantedBugIndex);
-
-        if (wantedBug.getBugStatus() == BugStatus.OPEN) {
-            try {
-                wantedBug.startProgress();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        } else if (wantedBug.getBugStatus() == BugStatus.IN_PROGRESS) {
-            try {
-                wantedBug.markFixed();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        } else if (wantedBug.getBugStatus() == BugStatus.FIXED) {
-            try {
-                wantedBug.closeBug();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
-        this.trackedBugsList.set(wantedBugIndex, wantedBug);
-    }
-
     // Ausgabe aller Bugs mit ihren Details.
     public void printAll() {
         for (Bug bug : this.trackedBugsList) {
