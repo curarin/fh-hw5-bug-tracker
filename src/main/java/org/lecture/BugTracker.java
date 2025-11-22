@@ -1,6 +1,7 @@
 package org.lecture;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class BugTracker {
     // Der BugTracker hält alle Bugs in einer Liste vor.
@@ -97,7 +98,14 @@ public class BugTracker {
     }
 
     public void printAllSortedByPriority() {
-        for (Bug bug : this.trackedBugsList) {
+        // Nach viel zu langem debugging bin ich drauf gekommen, dass ich hier ein neues Objekt erstellen muss
+        // da ohne new Keyword trackedBugsListSortedByPriority eine Referenz zum trackedBugsList ist > und daher beides sortiert wird
+        // was ich aber nicht will. Daher möchte ich eine Kopie erstellen und ledligich die Kopie sortieren
+        // in Python muss man nicht so viel mitdenken :D
+        ArrayList<Bug> trackedBugsListSortedByPriority = new ArrayList<>(this.trackedBugsList);
+        trackedBugsListSortedByPriority.sort(Comparator.comparing(bug -> bug.getBugPriority()));
+
+        for (Bug bug : trackedBugsListSortedByPriority) {
             switch (bug.getBugPriority()) {
                 case BugPriority.LOW -> {
                     System.out.println("--- Low Priority Bugs ---");
@@ -115,8 +123,6 @@ public class BugTracker {
                     System.out.println("--- Critical Priority Bugs ---");
                     bug.printDetails(this.trackedBugsList.indexOf(bug));
                 }
-
-
             }
         }
     }

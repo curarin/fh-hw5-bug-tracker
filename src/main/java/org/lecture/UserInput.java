@@ -67,8 +67,9 @@ public class UserInput {
                 (2)\tHIGH
                 (3)\tMEDIUM
                 (4)\tLOW
+                
+                Choose option:
                 """);
-        System.out.print("Choose option: ");
         String input = scanner.nextLine();
         try {
             bugPriorityInput = Integer.parseInt(input);

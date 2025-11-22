@@ -41,8 +41,8 @@ public class Main {
                         BugStatus currentUserBugStatus = userInput.getBugStatusMenu();
                         bugTracker.printAllFilteredByStatus(currentUserBugStatus);
                     }
-                    case 8 -> bugTracker.printAllSortedByPriority();
-                    case 9 -> bugTracker.printAllSortedByStatus();
+                    case 8 -> bugTracker.printAllSortedByStatus();
+                    case 9 -> bugTracker.printAllSortedByPriority();
                     case 10 -> bugTracker.printCountSortedByStatus();
                 }
             } catch (Exception e) {
